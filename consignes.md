@@ -61,6 +61,31 @@ Une fois l'audit terminé :
 2. Relancez l'application (`docker-compose up --build`).
 3. Vérifiez manuellement que les attaques précédentes ne fonctionnent plus.
 
+### 7. Mission 4 : Tests Unitaires de Sécurité & Validation des Correctifs
+
+Après avoir corrigé les failles, il est crucial de s'assurer que ces correctifs sont pérennes et que de nouvelles régressions n'introduisent pas de vulnérabilités.
+
+#### 🎯 Objectif 1 : Création de Tests Unitaires de Sécurité
+
+Développez des tests unitaires pour les fonctionnalités qui étaient vulnérables. Ces tests doivent spécifiquement vérifier que les attaques de type XSS, SQL Injection et IDOR ne sont plus possibles.
+
+*   **Framework de Test :** Utilisez un framework de test Node.js comme Jest ou Mocha (souvent utilisé avec `supertest` pour les requêtes HTTP).
+*   **Scénarios de Test :**
+    *   **XSS :** Écrivez des tests qui tentent d'injecter des payloads XSS (par exemple, `<script>alert('XSS')</script>`) dans les champs de saisie et vérifiez que le contenu est correctement échappé ou que le script n'est pas exécuté dans la réponse HTML.
+    *   **SQL Injection :** Créez des tests qui essaient d'utiliser des payloads SQLi (par exemple, `' OR '1'='1`) dans les formulaires de connexion ou d'autres points d'entrée de données. Vérifiez que ces tentatives d'injection échouent (par exemple, la connexion n'est pas réussie, aucune donnée inattendue n'est retournée, ou une erreur sécurisée est gérée).
+    *   **IDOR :** Implémentez des tests qui simulent des requêtes pour accéder à des ressources d'autres utilisateurs en manipulant les identifiants dans les URL ou les corps de requête. Assurez-vous que l'application renvoie des erreurs d'autorisation (par exemple, 401 Unauthorized ou 403 Forbidden) et non les données sensibles.
+
+#### 🎯 Objectif 2 : Réintégration d'une Faille pour Validation
+
+Pour prouver l'efficacité de vos tests unitaires de sécurité :
+
+1.  **Choisissez une faille :** Sélectionnez l'une des vulnérabilités que vous avez corrigées (XSS, SQL Injection ou IDOR).
+2.  **Réintroduisez-la :** Modifiez temporairement le code dans `app.js` pour réintroduire *intentionnellement* cette faille.
+3.  **Exécutez les tests :** Lancez vos tests unitaires. Le test correspondant à la faille réintroduite devrait maintenant échouer. Cela valide que votre test est capable de détecter la vulnérabilité.
+4.  **Annulez la modification :** N'oubliez pas de revenir sur la modification du code pour supprimer la faille réintroduite après cette validation.
+
+Cette étape est cruciale pour garantir que vos tests sont robustes et qu'ils serviront de filet de sécurité pour les développements futurs.
+
 ---
 
 ### 💡 Rappel : Les 3 Piliers du Prompt de Dev
