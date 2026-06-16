@@ -35,6 +35,10 @@ Avant d'utiliser l'IA, testez l'application comme un utilisateur (ou un attaquan
 
 Votre tâche est de rédiger un **Prompt Structuré** pour faire analyser le fichier `app.js` par votre assistant IA (ChatGPT, Claude, ou Cursor).
 
+Remplissez le fichier `AI_context.md` avec les éléments contextuels pour que l'IA avec laquelle vous interagissez soit la plus performante possible.
+Utilisez le format `markdown` et essayez de respecter le format que l'on a vu ensemble.
+A chaque fois que vous interagirez avec l'IA pensez à ajouter ce fichier au contexte.
+
 #### 📋 Consignes de Prompting :
 
 Vous devez utiliser le framework **S.C.O.P.E** pour obtenir le meilleur résultat :
